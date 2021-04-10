@@ -1,0 +1,54 @@
+
+balls.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+deer
+  rotate: false
+  xy: 1, 3
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+knifes
+  rotate: false
+  xy: 203, 3
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+ship
+  rotate: false
+  xy: 405, 3
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+tree
+  rotate: false
+  xy: 607, 3
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+among
+  rotate: false
+  xy: 809, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+cookie
+  rotate: false
+  xy: 911, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+eyes
+  rotate: false
+  xy: 809, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,33 @@
+
+shop.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shop_item_down
+  rotate: false
+  xy: 1, 319
+  size: 470, 575
+  orig: 470, 575
+  offset: 0, 0
+  index: -1
+shop_item_up
+  rotate: false
+  xy: 473, 319
+  size: 470, 575
+  orig: 470, 575
+  offset: 0, 0
+  index: -1
+arrow_down
+  rotate: false
+  xy: 1, 160
+  size: 257, 157
+  orig: 257, 157
+  offset: 0, 0
+  index: -1
+arrow_up
+  rotate: false
+  xy: 1, 1
+  size: 257, 157
+  orig: 257, 157
+  offset: 0, 0
+  index: -1

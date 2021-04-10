@@ -1,0 +1,47 @@
+
+menu.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shop_down
+  rotate: false
+  xy: 1, 174
+  size: 200, 171
+  orig: 200, 171
+  offset: 0, 0
+  index: -1
+shop_up
+  rotate: false
+  xy: 1, 1
+  size: 200, 171
+  orig: 200, 171
+  offset: 0, 0
+  index: -1
+mute_down
+  rotate: false
+  xy: 203, 175
+  size: 200, 170
+  orig: 200, 170
+  offset: 0, 0
+  index: -1
+mute_up
+  rotate: false
+  xy: 203, 3
+  size: 200, 170
+  orig: 200, 170
+  offset: 0, 0
+  index: -1
+unmute_down
+  rotate: false
+  xy: 405, 175
+  size: 200, 170
+  orig: 200, 170
+  offset: 0, 0
+  index: -1
+unmute_up
+  rotate: false
+  xy: 405, 3
+  size: 200, 170
+  orig: 200, 170
+  offset: 0, 0
+  index: -1
