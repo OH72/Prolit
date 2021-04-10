@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
@@ -35,8 +36,7 @@ public class Obstacle extends Sprite implements Disposable {
     private float turnAngle;
     private Random random;
 
-    private Texture texture;
-    private TextureRegion region;
+    private TextureRegion texture;
     private PolygonRegion polygonRegion;
     private PolygonSprite sprite;
 
@@ -45,7 +45,7 @@ public class Obstacle extends Sprite implements Disposable {
 
     private float constK;
 
-    public Obstacle(PlayScreen screen, Log log, float angle){
+    public Obstacle(PlayScreen screen, Log log, float angle, TextureAtlas atlas){
         this.screen = screen;
         this.world = screen.getWorld();
         this.log = log;
@@ -53,9 +53,9 @@ public class Obstacle extends Sprite implements Disposable {
 
         constK = 290.f / 250.f;
 
-        Gdx.app.log(Prolit.LOG_TAG, "create obstacle");
-        texture = new Texture("obstacle.png");
-        Gdx.app.log(Prolit.LOG_TAG, "texture is setted");
+//        Gdx.app.log(Prolit.LOG_TAG, "create obstacle");
+        texture = atlas.findRegion("obstacle");
+//        Gdx.app.log(Prolit.LOG_TAG, "texture is setted");
         random = new Random();
         turnAngle = random.nextFloat() * 360;
         setRegion(texture);
@@ -138,7 +138,7 @@ public class Obstacle extends Sprite implements Disposable {
         Vector2 vertices[] = new Vector2[list.size()];
         float points[] = new float[list.size() * 2];
 
-        float constW = texture.getWidth() / ((log.getRadius() + Prolit.OBSTACLE_R) * 2 );
+        float constW = texture.getRegionWidth() / ((log.getRadius() + Prolit.OBSTACLE_R) * 2 );
 
         for(int i = 0; i < list.size(); i++){
             vertices[i] = new Vector2(list.get(i).x / Prolit.PPM, list.get(i).y / Prolit.PPM);
@@ -168,7 +168,7 @@ public class Obstacle extends Sprite implements Disposable {
 
     public void update(float delta){
         calculatePoint();
-        Gdx.app.log(Prolit.LOG_TAG, "width = " + texture.getWidth());
+        Gdx.app.log(Prolit.LOG_TAG, "width = " + texture.getRegionWidth());
         setPosition(log.getX() / Prolit.PPM, log.getY() / Prolit.PPM);
 
     }
@@ -191,7 +191,6 @@ public class Obstacle extends Sprite implements Disposable {
 
     @Override
     public void dispose() {
-        texture.dispose();
         world.destroyBody(b2body);
     }
 }

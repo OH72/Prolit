@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -29,10 +31,10 @@ public class Log extends Sprite {
 
     private Obstacle obstacle;
 
-    private Texture texture;
+    private TextureRegion texture;
     private boolean boost;
 
-    public Log(PlayScreen screen, float radius, float x, float y, float angleV){
+    public Log(PlayScreen screen, float radius, float x, float y, float angleV, TextureAtlas atlas){
         this.screen = screen;
         world = screen.getWorld();
         this.radius = radius;
@@ -41,7 +43,7 @@ public class Log extends Sprite {
         this.angleV = angleV;
         obstacle = null;
         angle = 0;
-        texture = new Texture("spiral.png");
+        texture = atlas.findRegion("spiral");
         setRegion(texture);
         setBounds(0, 0, radius * 2 / Prolit.PPM, radius * 2 / Prolit.PPM);
         define();
@@ -65,8 +67,8 @@ public class Log extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
     }
 
-    public void createObstacle(int angle){
-        obstacle = new Obstacle(screen, this, angle);
+    public void createObstacle(int angle, TextureAtlas atlas){
+        obstacle = new Obstacle(screen, this, angle, atlas);
     }
 
     public void update(float delta){
@@ -161,7 +163,6 @@ public class Log extends Sprite {
         if(obstacle != null){
             obstacle.dispose();
         }
-        texture.dispose();
         world.destroyBody(b2body);
     }
 

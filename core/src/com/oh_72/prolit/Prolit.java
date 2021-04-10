@@ -10,8 +10,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.oh_72.prolit.screens.MenuScreen;
 import com.oh_72.prolit.screens.PlayScreen;
@@ -66,7 +69,7 @@ public class Prolit extends Game {
 
 	private Texture gameOver;
 
-	public Texture ballImgs[];
+	public TextureRegion ballImgs[];
 	public int count;
 
 	private Preferences pref;
@@ -75,6 +78,8 @@ public class Prolit extends Game {
 	private FitViewport viewport;
 
 	public static AssetManager assetManager;
+
+	private TextureAtlas atlas;
 
 	@Override
 	public void create () {
@@ -89,15 +94,22 @@ public class Prolit extends Game {
 		ball = pref.getInteger("ball");
 		balls = pref.getInteger("bought");
 		money = pref.getInteger("money");
-		count = 7;
-		ballImgs = new Texture[count];
-		ballImgs[0] = new Texture(Gdx.files.internal("deer.png"));
-		ballImgs[1] = new Texture(Gdx.files.internal("tree.png"));
-		ballImgs[2] = new Texture(Gdx.files.internal("ship.png"));
-		ballImgs[3] = new Texture(Gdx.files.internal("knifes.png"));
-		ballImgs[4] = new Texture(Gdx.files.internal("eyes.png"));
-		ballImgs[5] = new Texture(Gdx.files.internal("cookie.png"));
-		ballImgs[6] = new Texture(Gdx.files.internal("among.png"));
+
+		atlas = new TextureAtlas("balls.pack");
+
+		count = atlas.getRegions().size;
+		ballImgs = new TextureRegion[count];
+		int index = 0;
+		for(TextureRegion region : atlas.getRegions()){
+			ballImgs[index] = region;
+			index++;
+		}
+//		ballImgs[1] = new Texture(Gdx.files.internal("tree.png"));
+//		ballImgs[2] = new Texture(Gdx.files.internal("ship.png"));
+//		ballImgs[3] = new Texture(Gdx.files.internal("knifes.png"));
+//		ballImgs[4] = new Texture(Gdx.files.internal("eyes.png"));
+//		ballImgs[5] = new Texture(Gdx.files.internal("cookie.png"));
+//		ballImgs[6] = new Texture(Gdx.files.internal("among.png"));
 
 		K = ((float) Gdx.app.getGraphics().getWidth()) / V_WIDTH;
 		V_WIDTH =  Gdx.app.getGraphics().getWidth();

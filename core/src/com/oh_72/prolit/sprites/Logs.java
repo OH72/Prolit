@@ -3,6 +3,7 @@ package com.oh_72.prolit.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.oh_72.prolit.Prolit;
@@ -29,16 +30,17 @@ public class Logs implements Disposable {
 
     private Random random;
 
-    private long startHeight;
+    private TextureAtlas atlas;
 
-    public  Logs(PlayScreen screen){
+    public  Logs(PlayScreen screen, TextureAtlas atlas){
         this.screen = screen;
+        this.atlas = atlas;
 
         nowCount = 5;
         maxAngle = 0;
 
         logs = new ArrayList<Log>();
-        logs.add(new Log(screen, 200 * Prolit.K, Prolit.V_WIDTH / 2, Prolit.V_HEIGHT / 2, 3));
+        logs.add(new Log(screen, 200 * Prolit.K, Prolit.V_WIDTH / 2, Prolit.V_HEIGHT / 2, 3, atlas));
         maxHeight = (long) (logs.get(logs.size() - 1).getY() + logs.get(logs.size() - 1).getRadius()) + Prolit.KNIFE_R * 2 + Prolit.KNIFE_PAD + Prolit.OBSTACLE_R;
         Gdx.app.log(Prolit.LOG_TAG, "maxHeightStart = " + maxHeight);
 
@@ -106,11 +108,11 @@ public class Logs implements Disposable {
                 velocity *= -1;
             }
 
-            logs.add(new Log(screen, radius, x, y, velocity));
+            logs.add(new Log(screen, radius, x, y, velocity, atlas));
 
             if(random.nextInt(nowCount) <= 2 && maxAngle > 20){
                 Gdx.app.log(Prolit.LOG_TAG, "new obstacle");
-                logs.get(logs.size() - 1).createObstacle(random.nextInt(maxAngle - 20) + 20);
+                logs.get(logs.size() - 1).createObstacle(random.nextInt(maxAngle - 20) + 20, atlas);
             }
 
             if(y + radius > nextMax){

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
@@ -34,12 +35,14 @@ public class MenuScreen implements Screen {
 
     private Texture background;
 
-    private Texture mute_up;
-    private Texture unmute_up;
-    private Texture mute_down;
-    private Texture unmute_down;
-    private Texture shop_up;
-    private Texture shop_down;
+    private TextureAtlas atlas;
+
+    private TextureRegion mute_up;
+    private TextureRegion unmute_up;
+    private TextureRegion mute_down;
+    private TextureRegion unmute_down;
+    private TextureRegion shop_up;
+    private TextureRegion shop_down;
 
     private Label btnStart;
     private Image btnUnmute;
@@ -79,13 +82,16 @@ public class MenuScreen implements Screen {
     }
 
     private void initStage(int score, int record){
+
+        atlas = new TextureAtlas("menu.pack");
+
         background = new Texture("background.png");
-        mute_up = new Texture("mute_up.png");
-        unmute_up = new Texture("unmute_up.png");
-        mute_down = new Texture("mute_down.png");
-        unmute_down = new Texture("unmute_down.png");
-        shop_up = new Texture("shop_up.png");
-        shop_down = new Texture("shop_down.png");
+        mute_up = atlas.findRegion("mute_up");
+        unmute_up = atlas.findRegion("unmute_up");
+        mute_down = atlas.findRegion("mute_down");
+        unmute_down = atlas.findRegion("unmute_down");
+        shop_up = atlas.findRegion("shop_up");
+        shop_down = atlas.findRegion("shop_down");
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -108,10 +114,10 @@ public class MenuScreen implements Screen {
         labelFont = generator.generateFont(parameters);
 
 
-        btnShop = new Image(new TextureRegionDrawable(new TextureRegion(shop_up)));
+        btnShop = new Image(new TextureRegionDrawable(shop_up));
         btnShop.setSize(cellW * 2, cellH * 1.5f);
         btnShop.setWidth(cellW * 2.6f);
-        btnShop.setHeight(btnShop.getWidth() * shop_up.getHeight() / shop_up.getWidth());
+        btnShop.setHeight(btnShop.getWidth() * shop_up.getRegionHeight() / shop_up.getRegionWidth());
         btnShop.setPosition(padding, padding);
         btnShop.addListener(new InputListener(){
             @Override
@@ -283,12 +289,12 @@ public class MenuScreen implements Screen {
     public void dispose() {
         background.dispose();
         stage.dispose();
-        shop_up.dispose();
-        shop_down.dispose();
-        unmute_up.dispose();
-        mute_up.dispose();
-        unmute_down.dispose();
-        mute_down.dispose();
+//        shop_up.dispose();
+//        shop_down.dispose();
+//        unmute_up.dispose();
+//        mute_up.dispose();
+//        unmute_down.dispose();
+//        mute_down.dispose();
         buttonFont.dispose();
         labelFont.dispose();
     }

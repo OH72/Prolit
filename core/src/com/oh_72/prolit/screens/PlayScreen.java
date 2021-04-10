@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -34,6 +36,7 @@ public class PlayScreen implements Screen {
     private Ball ball;
 
     private Texture background;
+    private TextureAtlas atlas;
 
     private int score;
 
@@ -44,7 +47,7 @@ public class PlayScreen implements Screen {
     private float camSpeed;
     private float stopDist;
 
-    public PlayScreen(final Prolit game, Texture knifeSprite) {
+    public PlayScreen(final Prolit game, TextureRegion knifeSprite) {
 
         this.game = game;
 
@@ -56,6 +59,7 @@ public class PlayScreen implements Screen {
         firstCamY = (int)gameCam.position.y;
 
         background = new Texture("background.png");
+        atlas = new TextureAtlas("play.pack");
 
         hud = new Hud(game.batch);
 
@@ -63,7 +67,7 @@ public class PlayScreen implements Screen {
         world.setContactListener(new WorldContactListener());
         b2dr = new Box2DDebugRenderer();
 
-        logs = new Logs(this);
+        logs = new Logs(this, atlas);
 //        logs.add(new Log(this, 100, 100, 100, -3));
 //        logs.add(new Log(this, 100, 800, 100, 2));
 //        logs.add(new Log(this, 100, 100, 900, -10));
@@ -73,7 +77,7 @@ public class PlayScreen implements Screen {
 //        obstacles.add(new Obstacle(this, logs.get(1), 50));
 //        obstacles.add(new Obstacle(this, logs.get(2), 100));
 
-        this.ball = new Ball(this, logs.getLogs().get(0), knifeSprite);
+        this.ball = new Ball(this, logs.getLogs().get(0), knifeSprite, atlas);
 
         boost = false;
         camSpeed = 0;

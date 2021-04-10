@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -30,11 +32,13 @@ public class StoreScreen implements Screen, Disposable {
     private OrthographicCamera gameCam;
     private FitViewport gamePort;
 
+    private TextureAtlas atlas;
+
     private Texture background;
-    private Texture arrow_up;
-    private Texture arrow_down;
-    private Texture item_up;
-    private Texture item_down;
+    private TextureRegion arrow_up;
+    private TextureRegion arrow_down;
+    private TextureRegion item_up;
+    private TextureRegion item_down;
 
     private Stage stage;
 
@@ -44,7 +48,7 @@ public class StoreScreen implements Screen, Disposable {
     private Image btns[];
     private Image images[];
     private Label labels[];
-    private Texture balls[];
+    private TextureRegion balls[];
 
     private int count;
 
@@ -65,11 +69,13 @@ public class StoreScreen implements Screen, Disposable {
         gamePort = new FitViewport(Prolit.V_WIDTH / Prolit.PPM, Prolit.V_HEIGHT / Prolit.PPM, gameCam);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
+        atlas = new TextureAtlas("shop.pack");
+
         background = new Texture("background.png");
-        arrow_up = new Texture("arrow_up.png");
-        arrow_down = new Texture("arrow_down.png");
-        item_up = new Texture("shop_item_up.png");
-        item_down = new Texture("shop_item_down.png");
+        arrow_up = atlas.findRegion("arrow_up");
+        arrow_down = atlas.findRegion("arrow_down");
+        item_up = atlas.findRegion("shop_item_up");
+        item_down = atlas.findRegion("shop_item_down");
 
         glyphLayout = new GlyphLayout();
 

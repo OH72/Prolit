@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -40,8 +41,8 @@ public class Ball extends Sprite {
     private boolean dead;
     private boolean toMenu;
 
-    private Texture spriteSheet;
-    private Texture sprite;
+    private TextureRegion spriteSheet;
+    private TextureRegion sprite;
 
     private Animation<TextureRegion> deathAnimation;
 
@@ -49,7 +50,7 @@ public class Ball extends Sprite {
 
     private float maxSaveY;
 
-    public Ball(PlayScreen screen, Log log, Texture sprite){
+    public Ball(PlayScreen screen, Log log, TextureRegion sprite, TextureAtlas atlas){
         this.screen = screen;
         this.log = log;
         this.sprite = sprite;
@@ -67,7 +68,7 @@ public class Ball extends Sprite {
         dead = false;
         toMenu = false;
 
-        spriteSheet = new Texture("deathAnimation.png");
+        spriteSheet = atlas.findRegion("deathAnimation");
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++){
             frames.add( new TextureRegion(spriteSheet, i * 327, 0, 327, 327));
